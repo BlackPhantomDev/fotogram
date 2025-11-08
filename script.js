@@ -59,9 +59,10 @@ function init() {
 function renderColumns() {
     // zuerst alles löschen
     gallery.innerHTML = "";
+    gallery.innerHTML += "<h1>Wilkommen in meiner Galerie!</h1>";
 
     for (let i = 0; i < imageSources.length; i++) {
-    gallery.innerHTML += columnHtml(i);
+      gallery.innerHTML += columnHtml(i);
     }
 }
 
