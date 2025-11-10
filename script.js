@@ -39,9 +39,12 @@ const imageTitle = [
 let globalIndex = 0;
 
 // define elements
-let gallery = document.getElementById("gallery"); // gallery section
-let dialog = document.getElementById("image_preview"); // dialog element
-let dialogSection = document.getElementById("dialog_section"); // dialog section
+// gallery section
+let gallery = document.getElementById("gallery"); 
+// dialog element
+let dialog = document.getElementById("image_preview"); 
+// dialog section
+let dialogSection = document.getElementById("dialog_section"); 
 
 // event listeners closing click
 dialogSection.addEventListener("click", () => closeDialog());
