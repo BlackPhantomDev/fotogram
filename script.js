@@ -195,5 +195,11 @@ window.addEventListener('keydown', function(event) {
   if (event.key === 'Escape' || event.key === 'Esc') {
     closeDialog();
   }
+  if (event.key === 'ArrowLeft') {
+    previous();
+  }
+  if (event.key === 'ArrowRight') {
+    next();
+  }
 }
 );
