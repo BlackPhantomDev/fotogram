@@ -52,24 +52,21 @@
     justify-content: space-between;
 }
 
-.close-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 17px;
+.close-btn {
+    all: unset;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    border-radius: 50%;
 }
-
-.bar {
-    height: 1px;
-    width: 100%;
-    background-color: white;
-    border-radius: 10px;
+.close-btn img {
+    width: 44px;
+    height: 44px;
 }
-
-.bar1{rotate: 45deg; margin-top: 8px;}
-
-.bar2{rotate: -45deg; margin-bottom: 8px;}
+.navigation-btn:focus, .navigation-btn:hover {
+    box-shadow: white 0 0 20px; 
+    transition: all .1s ease-in;
+}
 
 #dialog_content {
     display: flex;
@@ -94,7 +91,14 @@
 }
 
 .dialog-btn {
+    all: unset;
     cursor: pointer;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+.dialog-btn:focus{
+    box-shadow: white 0 0 20px; 
 }
 .dialog-btn img {
     height: 60px;
@@ -146,7 +150,8 @@
     .inner-dialog h2 {
         font-size: 20px;
     }
-    .dialog-btn img {
+    .dialog-btn, .dialog-btn img {
+        width: 50px;
         height: 50px;
     }
 }
