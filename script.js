@@ -73,7 +73,7 @@ function columnHtml(index) {
     let htmlText = `
     <button class="column"
         type="button"
-        aria-label="Bild ${index} oeffnen"
+        aria-label="Bild ${index + 1} oeffnen"
         aria-haspopup="dialog"
         aria-controls="image_preview"
         onclick="openDialog(${index})">
