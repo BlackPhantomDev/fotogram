@@ -39,20 +39,20 @@ const imageTitle = [
 let globalIndex = 0;
 
 // define elements
-let gallery = document.getElementById("gallery");
-let preview = document.getElementById("image_preview");
-let dialog = document.getElementById("dialog_section");
+let gallery = document.getElementById("gallery"); // gallery section
+let dialog = document.getElementById("image_preview"); // dialog element
+let dialogSection = document.getElementById("dialog_section"); // dialog section
 
 // event listeners closing click
-dialog.addEventListener("click", () => closeDialog());
-preview.addEventListener('click', (e) => {
+dialogSection.addEventListener("click", () => closeDialog());
+dialog.addEventListener('click', (e) => {
     if (e.target.closest('.inner-dialog')) e.stopPropagation();
 });
 
 // initialization in body onload
 function init() {
   renderColumns();
-  dialog.style.display = "none";
+  dialogSection.style.display = "none";
 }
 
 // generate columns
@@ -69,11 +69,19 @@ function renderColumns() {
 // the HTML for each column,
 // index is passed to link the correct images and functions
 function columnHtml(index) {
-  let htmlText = `
-    <div class="column" onclick="openDialog(${index})" aria-label="Bild ${index + 1} oeffnen" aria-haspopup="dialog" aria-controls="image_preview">
-        <img src="./assets/img/gallery/${imageSources[index]}" alt="Ein Bild mit dem Titel: ${imageTitle[index]}">
-    </div>
+
+    let htmlText = `
+    <button class="column"
+        type="button"
+        aria-label="Bild ${index} oeffnen"
+        aria-haspopup="dialog"
+        aria-controls="image_preview"
+        onclick="openDialog(${index})">
+      <img src="./assets/img/gallery/${imageSources[index]}" 
+           alt="Ein Bild mit dem Titel: ${imageTitle[index]}">
+    </button>
     `;
+ 
 
   return htmlText;
 }
@@ -97,9 +105,9 @@ function dialogHtml(index) {
         </section>
 
         <footer id="dialog_navigation">
-            <span id="previous" class="dialog-btn" onclick="previous()"><img src="./assets/img/arrow-left.svg"></span>
+            <span id="previous" class="dialog-btn" onclick="previous()" tabindex="1"><img src="./assets/img/arrow-left.svg"></span>
             <span aria-label="Bild ${globalIndex + 1} von 14">${globalIndex + 1} / 14</span>
-            <span id="next" class="dialog-btn" onclick="next()"><img src="./assets/img/arrow-right.svg"></span>
+            <span id="next" class="dialog-btn" onclick="next()" tabindex="1"><img src="./assets/img/arrow-right.svg"></span>
         </footer>
 
     </div>
@@ -110,30 +118,32 @@ function openDialog(index) {
   // change the global index to the passed index
   globalIndex = index;
 
+  // clear first
+  dialogSection.innerHTML = "";
   // set the innerHTML of the dialog 
-  preview.innerHTML = dialogHtml(index);
+  dialog.innerHTML = dialogHtml(index);
   // and show it
-  preview.showModal();
+  dialog.showModal();
 
   // add new classes for backdrop 
-  preview.classList.add("opened");
+  dialog.classList.add("opened");
   // and no scrolling
   body.classList.add("overflow-hidden");
 
   // set display style for the whole dialog section
-  dialog.style.display = "block";
+  dialogSection.style.display = "block";
 }
 
 function closeDialog() {
   // set display back to none of the dialog section
-  dialog.style.display = "none";
+  dialogSection.style.display = "none";
 
   // remove classes who setted by openDialog
-  preview.classList.remove("opened");
+  dialog.classList.remove("opened");
   body.classList.remove("overflow-hidden");
   
   // close the Dialog
-  preview.close();
+  dialog.close();
 }
 
 // function to show the previous image
@@ -148,10 +158,10 @@ function previous() {
   }
   
   // close the dialog, inject the new markup and reopen it
-  preview.close();
-  preview.innerHTML = dialogHtml(globalIndex);
-  preview.showModal();
-  preview.classList.add("opened");
+  dialog.close();
+  dialog.innerHTML = dialogHtml(globalIndex);
+  dialog.showModal();
+  dialog.classList.add("opened");
 }
 
 // function to show the next image
@@ -166,8 +176,8 @@ function next() {
   }
 
   // close the dialog, inject the new markup and reopen it
-  preview.close();
-  preview.innerHTML = dialogHtml(globalIndex);
-  preview.showModal();
-  preview.classList.add("opened");
+  dialog.close();
+  dialog.innerHTML = dialogHtml(globalIndex);
+  dialog.showModal();
+  dialog.classList.add("opened");
 }
