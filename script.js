@@ -1,5 +1,5 @@
 
-// alle dateinamen
+// every filename
 const imageSources = [
   "001.webp",
   "002.webp",
@@ -17,7 +17,7 @@ const imageSources = [
   "014.webp",
 ];
 
-// alle titel der bilder
+// every title for the images
 const imageTitle = [
   "Der Weg",
   "Der Fr&uuml;hling",
@@ -35,27 +35,27 @@ const imageTitle = [
   "Sonnen&shy;untergang (2)",
 ];
 
-// globale index variable
+// global index variable is used for the preview
 let globalIndex = 0;
 
-// elemente definieren
+// define elements
 let gallery = document.getElementById("gallery");
 let preview = document.getElementById("image_preview");
 let dialog = document.getElementById("dialog_section");
 
-// event listeners für das klicken zum schliessen
+// event listeners closing click
 dialog.addEventListener("click", () => closeDialog());
 preview.addEventListener('click', (e) => {
     if (e.target.closest('.inner-dialog')) e.stopPropagation();
 });
 
-// wird im body onload ausgeführt
+// initialization in body onload
 function init() {
   renderColumns();
   dialog.style.display = "none";
 }
 
-// die columns generieren
+// generate columns
 function renderColumns() {
     // zuerst alles löschen
     gallery.innerHTML = "";
@@ -66,8 +66,8 @@ function renderColumns() {
     }
 }
 
-// das html um jeden column zu erzeugen, index wird übergeben 
-// für die korrekten bilder und funktionen zu verknüpfen
+// the HTML for each column,
+// index is passed to link the correct images and functions
 function columnHtml(index) {
   let htmlText = `
     <div class="column" onclick="openDialog(${index})" aria-label="Bild ${index + 1} oeffnen" aria-haspopup="dialog" aria-controls="image_preview">
@@ -78,6 +78,8 @@ function columnHtml(index) {
   return htmlText;
 }
 
+// function returns the innerHTML of the Dialog
+// index is passed for the image with title and counter
 function dialogHtml(index) {
   return `
   <!-- Dialog for image preview -->
@@ -105,40 +107,65 @@ function dialogHtml(index) {
 }
 
 function openDialog(index) {
+  // change the global index to the passed index
   globalIndex = index;
 
+  // set the innerHTML of the dialog 
   preview.innerHTML = dialogHtml(index);
+  // and show it
   preview.showModal();
+
+  // add new classes for backdrop 
   preview.classList.add("opened");
+  // and no scrolling
   body.classList.add("overflow-hidden");
+
+  // set display style for the whole dialog section
   dialog.style.display = "block";
 }
 
 function closeDialog() {
+  // set display back to none of the dialog section
   dialog.style.display = "none";
+
+  // remove classes who setted by openDialog
   preview.classList.remove("opened");
   body.classList.remove("overflow-hidden");
+  
+  // close the Dialog
   preview.close();
 }
 
+// function to show the previous image
 function previous() {
+
+  // if we are at the first image, wrap around to the last one
   if (globalIndex <= 0) {
     globalIndex = imageSources.length - 1;
   } else {
+    // otherwise just decrement the index
     globalIndex--;
   }
+  
+  // close the dialog, inject the new markup and reopen it
   preview.close();
   preview.innerHTML = dialogHtml(globalIndex);
   preview.showModal();
   preview.classList.add("opened");
 }
 
+// function to show the next image
 function next() {
+
+  // if we are at the last image, wrap around to the first one
   if (globalIndex >= imageSources.length - 1) {
     globalIndex = 0;
   } else {
+    // otherwise just increment the index
     globalIndex++;
   }
+
+  // close the dialog, inject the new markup and reopen it
   preview.close();
   preview.innerHTML = dialogHtml(globalIndex);
   preview.showModal();
