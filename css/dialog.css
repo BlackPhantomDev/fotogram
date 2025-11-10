@@ -84,26 +84,6 @@
     aspect-ratio: 1/1;
     border-radius: 4px;
 }
-.column {
-    transition: all .15s ease-in-out;
-}
-.column:hover {
-    box-shadow: white 0 0 20px;
-}
-
-.column img {
-    transition: transform .17s ease-in-out;
-    display: block;
-}
-
-.column:hover img {
-    transform: scale(1.2); 
-}
-
-.column {
-    overflow: hidden;    
-}
-
 
 #dialog_navigation {
     display: flex;
