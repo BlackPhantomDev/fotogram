@@ -17,7 +17,7 @@
     <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="#"><img src="./assets/img/Fotogram_Logo.svg" alt=""></a>
+                <a href="#" tabindex="-1"><img src="./assets/img/Fotogram_Logo.svg" alt="Logo der Website"></a>
             </div>
         </nav>
     </header>
@@ -28,8 +28,15 @@
         </div>
     </main>
     <section id="dialog_section" tabindex="-1">
-        <dialog id="image_preview" role="dialog" aria-labelledby="dialog_title" aria-describedby="dialog_content">
-            
+        <dialog id="image_preview"
+            aria-labelledby="dialog_title"
+            aria-describedby="dialog_content">
+
+                <!-- This elements are only for the screenreader  -->
+                <!-- because the dialog is currently not set with content -->
+                <h2 id="dialog_title"></h2>
+                <section id="dialog_content"></section>
+
         </dialog>
     </section>
 
@@ -38,7 +45,7 @@
     <footer id="main_footer">
         <section class="footer-content">
             <div class="footer-links">
-                <a href="https://instagram.com/blackphantom.swiss" target="_blank"><img src="./assets/img/icons8-instagram.svg" alt=""></a>
+                <a href="https://instagram.com/blackphantom.swiss" target="_blank"><img src="./assets/img/icons8-instagram.svg" alt="Instagram Logo mit verlinkung zum Instagram-Account"></a>
             </div>
             <div class="copyright">
                 © 2025 - Mischa Siegrist | Icons by <a href="https://icons8.com">icons8.com</a>
