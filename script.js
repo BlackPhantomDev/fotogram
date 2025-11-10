@@ -119,7 +119,7 @@ function openDialog(index) {
   globalIndex = index;
 
   // clear first
-  dialogSection.innerHTML = "";
+  dialog.innerHTML = "";
   // set the innerHTML of the dialog 
   dialog.innerHTML = dialogHtml(index);
   // and show it
