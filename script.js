@@ -94,10 +94,9 @@ function dialogHtml(index) {
     <div class="inner-dialog">
         <header id="dialog_header">
             <h2 id="dialog_title">${imageTitle[index]}</h2>
-            <a onclick="closeDialog()" role="button" aria-label="Dialog schliessen" href="#" class="close-button" >
-                <span class="bar bar1"></span>
-                <span class="bar bar2"></span>
-            </a>
+            <button onclick="closeDialog()" aria-label="Dialog schliessen" href="#" class="close-btn navigation-btn" tabindex="0">
+                <img src="./assets/img/close-icon.png" alt="Schliessen Button"/>
+            </button>
         </header>
 
         <section id="dialog_content">
@@ -105,9 +104,9 @@ function dialogHtml(index) {
         </section>
 
         <footer id="dialog_navigation">
-            <span id="previous" class="dialog-btn" onclick="previous()" tabindex="1"><img src="./assets/img/arrow-left.svg"></span>
-            <span aria-label="Bild ${globalIndex + 1} von 14">${globalIndex + 1} / 14</span>
-            <span id="next" class="dialog-btn" onclick="next()" tabindex="1"><img src="./assets/img/arrow-right.svg"></span>
+            <button id="previous" class="dialog-btn navigation-btn" onclick="previous()"><img src="./assets/img/arrow-left.svg" alt="Button vorheriges Bild" /></button>
+            <span aria-label="Bild ${globalIndex + 1} von 14" aria-live="polite">${globalIndex + 1} / 14</span>
+            <button id="next" class="dialog-btn navigation-btn" onclick="next()"><img src="./assets/img/arrow-right.svg" alt="Button naechstes Bild" /></button>
         </footer>
 
     </div>
@@ -162,6 +161,10 @@ function previous() {
   dialog.innerHTML = dialogHtml(globalIndex);
   dialog.showModal();
   dialog.classList.add("opened");
+
+  // reset the focus for keyboards
+  const prevBtn = document.getElementById("previous");
+  if (prevBtn) prevBtn.focus(); 
 }
 
 // function to show the next image
@@ -180,4 +183,17 @@ function next() {
   dialog.innerHTML = dialogHtml(globalIndex);
   dialog.showModal();
   dialog.classList.add("opened");
+
+  // reset the focus for keyboards
+  const nextBtn = document.getElementById("next");
+  if (nextBtn) nextBtn.focus();
 }
+
+// eventListner for clicking ESC Key
+
+window.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape' || event.key === 'Esc') {
+    closeDialog();
+  }
+}
+);
