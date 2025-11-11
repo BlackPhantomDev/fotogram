@@ -86,7 +86,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
     gap: 80px;
 }
 
@@ -103,6 +102,12 @@
 .dialog-btn img {
     height: 60px;
     width: auto;
+}
+
+#img_counter {
+    display: flex;
+    justify-content: center;
+    width: 65px;
 }
 
 
