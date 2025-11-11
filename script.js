@@ -46,11 +46,21 @@ let dialog = document.getElementById("image_preview");
 // dialog section
 let dialogSection = document.getElementById("dialog_section"); 
 
-// event listeners closing click
-dialogSection.addEventListener("click", () => closeDialog());
-dialog.addEventListener('click', (e) => {
-    if (e.target.closest('.inner-dialog')) e.stopPropagation();
-});
+// eventListner for close with esc and prev./next with arrows
+window.addEventListener('keydown', function(event) {
+  if (dialog.open) {
+    if (event.key === 'Escape' || event.key === 'Esc') {
+      closeDialog();
+    }
+    if (event.key === 'ArrowLeft') {
+      previous();
+    }
+    if (event.key === 'ArrowRight') {
+      next();
+    }
+  }
+}
+);
 
 // initialization in body onload
 function init() {
@@ -62,7 +72,6 @@ function init() {
 function renderColumns() {
     // zuerst alles löschen
     gallery.innerHTML = "";
-    gallery.innerHTML += "<h1>Wilkommen in meiner Galerie!</h1>";
 
     for (let i = 0; i < imageSources.length; i++) {
       gallery.innerHTML += columnHtml(i);
@@ -72,21 +81,18 @@ function renderColumns() {
 // the HTML for each column,
 // index is passed to link the correct images and functions
 function columnHtml(index) {
-
-    let htmlText = `
-    <button class="column"
-        type="button"
+    return `
+    <figure>
+      <button class="column"
         aria-label="Bild ${index + 1} oeffnen"
         aria-haspopup="dialog"
         aria-controls="image_preview"
         onclick="openDialog(${index})">
-      <img src="./assets/img/gallery/${imageSources[index]}" 
-           alt="Ein Bild mit dem Titel: ${imageTitle[index]}">
-    </button>
+          <img src="./assets/img/gallery/${imageSources[index]}" 
+            alt="Ein Bild mit dem Titel: ${imageTitle[index]}">
+      </button>
+    </figure>
     `;
- 
-
-  return htmlText;
 }
 
 // function returns the innerHTML of the Dialog
@@ -108,7 +114,7 @@ function dialogHtml(index) {
 
         <footer id="dialog_navigation">
             <button id="previous" class="dialog-btn navigation-btn" onclick="previous()"><img src="./assets/img/arrow-left.svg" alt="Button vorheriges Bild" /></button>
-            <span aria-label="Bild ${globalIndex + 1} von 14" aria-live="polite">${globalIndex + 1} / 14</span>
+            <span id="img_counter" aria-label="Bild ${globalIndex + 1} von 14" aria-live="polite">${globalIndex + 1} / 14</span>
             <button id="next" class="dialog-btn navigation-btn" onclick="next()"><img src="./assets/img/arrow-right.svg" alt="Button naechstes Bild" /></button>
         </footer>
 
@@ -192,17 +198,3 @@ function next() {
   if (nextBtn) nextBtn.focus();
 }
 
-// eventListner for clicking ESC Key
-
-window.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape' || event.key === 'Esc') {
-    closeDialog();
-  }
-  if (event.key === 'ArrowLeft') {
-    previous();
-  }
-  if (event.key === 'ArrowRight') {
-    next();
-  }
-}
-);
