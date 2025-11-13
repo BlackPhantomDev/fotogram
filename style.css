@@ -30,6 +30,8 @@
 
 /* Navbar styling */
 .main-header {
+    display: flex;
+    justify-content: center;
     width: 100%;
     background-color: var(--primary-color);
 }
