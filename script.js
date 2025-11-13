@@ -64,7 +64,7 @@ window.addEventListener('keydown', function(event) {
 // event listeners for closing click behind dialog
 dialogSection.addEventListener("click", () => closeDialog());
 dialog.addEventListener('click', function(event) {
-    if (event.target.closest('.inner-dialog')) e.stopPropagation();
+    if (event.target.closest('.inner-dialog')) event.stopPropagation();
 });
 
 // initialization in body onload
