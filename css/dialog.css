@@ -115,6 +115,9 @@
     .inner-dialog {
         padding: 30px 60px;
     }
+    .navigation-btn:hover {
+        box-shadow: none; 
+    }
 }
 
 @media (max-width: 767px) {
