@@ -61,6 +61,11 @@ window.addEventListener('keydown', function(event) {
   }
 }
 );
+// event listeners for closing click behind dialog
+dialogSection.addEventListener("click", () => closeDialog());
+dialog.addEventListener('click', function(event) {
+    if (event.target.closest('.inner-dialog')) e.stopPropagation();
+});
 
 // initialization in body onload
 function init() {
@@ -69,8 +74,8 @@ function init() {
 }
 
 // generate columns
+// clear everyting, then set columns
 function renderColumns() {
-    // zuerst alles löschen
     gallery.innerHTML = "";
 
     for (let i = 0; i < imageSources.length; i++) {
@@ -91,6 +96,7 @@ function columnHtml(index) {
           <img src="./assets/img/gallery/${imageSources[index]}" 
             alt="Ein Bild mit dem Titel: ${imageTitle[index]}">
       </button>
+      <figcaption class="sr-only">${imageTitle[index]}</figcaption>
     </figure>
     `;
 }
@@ -103,14 +109,19 @@ function dialogHtml(index) {
     <div class="inner-dialog">
         <header id="dialog_header">
             <h2 id="dialog_title">${imageTitle[index]}</h2>
-            <button onclick="closeDialog()" aria-label="Dialog schliessen" href="#" class="close-btn navigation-btn" tabindex="0">
+            <button onclick="closeDialog()" aria-label="Dialog schliessen" href="#" class="close-btn navigation-btn" type="button" tabindex="0">
                 <img src="./assets/img/close-icon.png" alt="Schliessen Button"/>
             </button>
         </header>
 
-        <section id="dialog_content">
-            <img id="preview" src="./assets/img/gallery/${imageSources[index]}" alt="Ein Bild mit dem Titel: ${imageTitle[index]}" />
-        </section>
+      <section id="dialog_content">
+        <figure>
+          <img id="preview"
+              src="./assets/img/gallery/${imageSources[index]}"
+              alt="Ein Bild mit dem Titel: ${imageTitle[index]}">
+          <figcaption class="sr-only">${imageTitle[index]}</figcaption>
+        </figure>
+      </section>
 
         <footer id="dialog_navigation">
             <button id="previous" class="dialog-btn navigation-btn" onclick="previous()"><img src="./assets/img/arrow-left.svg" alt="Button vorheriges Bild" /></button>
